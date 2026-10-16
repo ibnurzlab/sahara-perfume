@@ -1,0 +1,24 @@
+# Database & berkas gambar hasil unggahan dibuat saat runtime.
+backend/data/
+uploads/
+
+# Berkas cadangan SQLite
+*.db
+*.db-wal
+*.db-shm
+
+# Node
+node_modules/
+npm-debug.log*
+
+# Cloudflare — hasil build & kredensial
+dist/
+cf/.wrangler/
+cf/.env
+.dev.vars
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

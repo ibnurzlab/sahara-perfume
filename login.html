@@ -1,0 +1,67 @@
+<!DOCTYPE html><html class="light" lang="id"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><title>SAHARA — Masuk Ruang Kurasi</title><meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="assets/css/base.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind-config.js"></script></head><body class="bg-surface text-on-surface flex flex-col min-h-screen selection:bg-primary selection:text-on-primary">
+<main class="flex flex-col w-full min-h-screen px-margin-mobile py-space-xl justify-center">
+<div class="w-full max-w-md mx-auto flex flex-col">
+<a href="masuk.html" class="flex items-center gap-2 text-secondary hover:text-primary transition-colors mb-space-lg">
+<span class="material-symbols-outlined text-[20px]">arrow_back</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Kembali ke pemilihan peran</span>
+</a>
+
+<div class="flex flex-col items-center text-center gap-space-xs mb-space-lg">
+<div class="w-14 h-14 rounded-full bg-primary flex items-center justify-center mb-space-xs">
+<span class="material-symbols-outlined text-on-primary text-[26px]">admin_panel_settings</span>
+</div>
+<span class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase">SAHARA</span>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Ruang Kurasi · Admin</p>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-primary tracking-tight mt-space-sm">Masuk Panel</h1>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-[300px]">
+      Autentikasi diperlukan untuk mengelola katalog galeri parfum.
+    </p>
+</div>
+
+<div class="hidden items-start gap-2 p-space-sm bg-error-container text-on-error-container mb-space-sm" id="login-error" role="alert" aria-live="polite">
+<span class="material-symbols-outlined text-[18px] shrink-0">error</span>
+<span class="font-body-sm text-body-sm" id="login-error-text"></span>
+</div>
+
+<form class="flex flex-col gap-space-md" id="login-form" novalidate>
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="login-user">Nama Kurator</label>
+<input class="w-full bg-surface-container-low px-space-sm py-3 text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors border border-surface-variant" id="login-user" autocomplete="username" placeholder="kurator" type="text" required>
+</div>
+
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="login-password">Kata Sandi</label>
+<div class="relative flex items-center bg-surface-container-low border border-surface-variant focus-within:bg-surface-container-lowest transition-colors">
+<input class="w-full bg-transparent px-space-sm py-3 pr-12 text-on-surface font-body-md text-body-md focus:outline-none" id="login-password" autocomplete="current-password" placeholder="••••••••" type="password" required>
+<button class="absolute right-1 min-w-[40px] min-h-[40px] flex items-center justify-center text-secondary hover:text-primary transition-colors" id="toggle-password" type="button" aria-label="Tampilkan kata sandi">
+<span class="material-symbols-outlined text-[20px]" id="toggle-password-icon">visibility</span>
+</button>
+</div>
+</div>
+
+<button class="w-full py-3.5 bg-primary text-on-primary font-label-md text-label-md uppercase tracking-widest active:scale-[0.99] transition-transform flex items-center justify-center gap-2" id="login-submit" type="submit">
+<span class="material-symbols-outlined text-[18px]">lock_open</span>
+<span id="login-submit-label">Masuk ke Ruang Kurasi</span>
+</button>
+</form>
+
+<div class="mt-space-lg p-space-sm bg-surface-container-low flex flex-col gap-space-xs">
+<div class="flex items-center justify-between">
+<span class="font-label-sm text-label-sm uppercase tracking-widest text-secondary">Akses Terbatas</span>
+</div>
+<div class="flex items-start gap-2 pt-1 border-t border-surface-variant mt-1">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">shield_lock</span>
+<p class="font-body-sm text-body-sm text-secondary">Kredensial diverifikasi oleh server dan sesi disimpan pada cookie HttpOnly. Kata sandi tidak pernah ditanam di halaman ini.</p>
+</div>
+</div>
+</div>
+</main>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/login.js"></script>
+</body></html>

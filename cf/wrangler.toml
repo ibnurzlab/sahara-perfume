@@ -1,0 +1,42 @@
+# ============================================================
+# SAHARA — konfigurasi Cloudflare Worker
+#
+# Frontend statis diambil dari `../dist` (hasil `npm run build`),
+# API berjalan di Worker yang sama, database memakai D1.
+# ============================================================
+
+name = "sahara-perfume"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# Token API yang dipakai ber-scope akun, jadi id akun ditulis
+# eksplisit supaya wrangler tidak perlu memanggil /memberships.
+account_id = "500d662b6e4abafe93b2201cbec2b884"
+
+# Hanya isi folder dist/ yang diunggah — backend/, database
+# SQLite lokal, dan berkas proyek lain tidak pernah ikut.
+#
+# html_handling = "none": `/detail.html?id=p1` disajikan apa
+# adanya, tanpa redirect ke `/detail` seperti perilaku bawaan.
+#
+# run_worker_first = true: semua permintaan masuk ke Worker
+# dulu, sehingga "/" bisa dipetakan ke index.html tanpa redirect.
+[assets]
+directory = "../dist"
+binding = "ASSETS"
+html_handling = "none"
+run_worker_first = true
+
+[[d1_databases]]
+binding = "DB"
+database_name = "sahara-db"
+database_id = "232fc3a5-ae0f-4e68-b05f-cc15b9b76e72"
+migrations_dir = "migrations"
+
+# Variabel non-rahasia. Kata sandi kurator TIDAK ditulis di sini:
+# tanpa SAHARA_ADMIN_PASS, sistem memakai kata sandi demo bawaan.
+# Untuk menggantinya:
+#   npx wrangler secret put SAHARA_ADMIN_PASS
+[vars]
+SAHARA_ADMIN_USER = "kurator"
+SAHARA_ADMIN_NAME = "Kurator Sahara"

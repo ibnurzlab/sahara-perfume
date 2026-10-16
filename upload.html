@@ -1,0 +1,230 @@
+<!DOCTYPE html><html class="light" lang="id"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"><meta content="mobile_stack" name="shell-type"><title>SAHARA — Upload Parfum Baru</title><meta name="robots" content="noindex, nofollow">
+<link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&amp;family=Plus+Jakarta+Sans:ital,wght@0,300..800;1,300..800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet">
+<link href="assets/css/base.css" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="assets/js/tailwind-config.js"></script></head><body class="bg-surface text-on-surface flex flex-col min-h-screen selection:bg-primary selection:text-on-primary"><header class="fixed top-0 inset-x-0 z-50 bg-surface/85 backdrop-blur-xl pt-safe shadow-[0_1px_8px_rgba(0,0,0,0.03)]"><div class="h-16 px-margin-mobile flex items-center justify-between"><div class="flex items-center gap-space-xs"><button aria-label="Kembali" class="min-w-[44px] min-h-[44px] flex items-center justify-center text-primary transition-opacity hover:opacity-70" id="cancelBackBtn"><span class="material-symbols-outlined text-[20px]">arrow_back</span></button><img alt="SAHARA Logo" class="h-8 w-auto object-contain" id="brand-logo" src="" onerror="this.style.display='none'" /><h1 class="font-headline-sm text-headline-sm tracking-tight text-primary uppercase ml-1" id="pageTitle">Upload Parfum Baru</h1></div><a href="index.html" title="Lihat Toko (User)" aria-label="Lihat Toko" class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">storefront</span></a></div></header><main class="flex flex-col relative w-full pt-16 pb-safe bg-surface flex-1"><div class="flex flex-col w-full pb-32">
+<!-- Status Context Bar -->
+<section class="px-margin-mobile pt-space-md pb-space-sm bg-surface flex items-center justify-between">
+<div class="flex flex-col">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-widest">Katalog Haute Parfumerie</span>
+<h2 class="font-headline-sm text-headline-sm text-on-surface" id="pageSubtitle">Tambah Parfum Baru</h2>
+</div>
+<div class="flex items-center gap-space-xs">
+<button class="px-3 py-2 text-secondary hover:text-primary transition-colors font-label-md text-label-md uppercase tracking-wider" id="cancelBtn" type="button">
+        Batal
+      </button>
+<button class="px-3 py-2 bg-surface-container-high text-on-surface hover:bg-surface-variant transition-colors font-label-md text-label-md uppercase tracking-wider" id="saveDraftBtn" type="button">
+        Draft
+      </button>
+</div>
+</section>
+<!-- Progress Stepper / Micro-metric Indicator -->
+<div class="w-full bg-surface-container-high h-[2px]">
+<div class="bg-primary h-[2px] w-1/3 transition-all duration-300" id="formProgress"></div>
+</div>
+<form class="flex flex-col px-margin-mobile pt-space-lg gap-space-lg" id="perfumeForm" onsubmit="event.preventDefault();">
+<!-- 1. Upload Media Gambar -->
+<div class="flex flex-col gap-space-sm bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase bg-surface-container px-2 py-0.5">01</span>
+<label class="font-headline-sm text-headline-sm text-on-surface" for="imageInput">Media Visual Flacon</label>
+</div>
+<span class="font-label-sm text-label-sm text-secondary" id="mediaCounter">0/5 Terisi</span>
+</div>
+<p class="font-body-sm text-body-sm text-secondary">
+        Standar editorial: Rasio potret 3:4, latar monokromatik lembut, pencahayaan studio difus.
+      </p>
+<!-- Drag & Drop Container -->
+<label class="relative group cursor-pointer flex flex-col items-center justify-center p-space-lg bg-surface-container-low transition-colors duration-200 hover:bg-surface-container text-center" id="dropzone">
+<div class="w-12 h-12 rounded-full bg-surface-container-high flex items-center justify-center text-primary mb-space-sm group-hover:scale-105 transition-transform duration-200">
+<span class="material-symbols-outlined text-[24px]">add_a_photo</span>
+</div>
+<p class="font-body-md text-body-md text-on-surface max-w-[260px]">
+          Seret foto produk beresolusi tinggi atau ketuk untuk memilih file
+        </p>
+<span class="font-label-sm text-label-sm text-secondary mt-space-xs uppercase tracking-widest">
+          PNG / JPG • Maksimal 10MB • Otomatis dikompres
+        </span>
+<input accept="image/*" class="absolute inset-0 opacity-0 cursor-pointer" id="imageInput" multiple type="file">
+</label>
+<!-- Image Previews Grid -->
+<div class="grid grid-cols-3 gap-space-sm mt-space-xs" id="previewGrid"></div>
+</div>
+<!-- 2. Informasi Dasar Parfum -->
+<div class="flex flex-col gap-space-md bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase bg-surface-container px-2 py-0.5">02</span>
+<label class="font-headline-sm text-headline-sm text-on-surface" for="perfumeName">Identitas &amp; Koleksi</label>
+</div>
+<!-- Nama Parfum -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="perfumeName">Nama Kreasi Parfum</label>
+<input class="w-full bg-surface-container-low px-space-sm py-3 text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors" id="perfumeName" placeholder="Contoh: Dune Noire Extrait" type="text">
+</div>
+<!-- Label Galeri (badge) -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="badgeInput">Label Galeri (opsional)</label>
+<input class="w-full bg-surface-container-low px-space-sm py-3 text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors" id="badgeInput" placeholder="Contoh: Terlaris / Signature / Edisi Terbatas" type="text">
+</div>
+<!-- Koleksi Dropdown -->
+<div class="flex flex-col gap-1 relative">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="collectionSelect">Koleksi / Seri Monograf</label>
+<div class="relative">
+<select class="w-full appearance-none bg-surface-container-low px-space-sm py-3 pr-10 text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors" id="collectionSelect"></select>
+<span class="material-symbols-outlined absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-secondary text-[20px]">
+            expand_more
+          </span>
+</div>
+</div>
+<!-- Kategori Olfaktori -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Kategori Olfaktori</span>
+<div class="flex flex-wrap gap-space-xs" id="categoryChips"></div>
+</div>
+<!-- Volume Selector -->
+<div class="flex flex-col gap-space-xs">
+<span class="font-label-sm text-label-sm text-secondary uppercase tracking-wider">Volume / Kapasitas Flacon</span>
+<div class="grid grid-cols-3 gap-space-xs" id="volumeGroup">
+<button class="vol-btn py-3 px-2 text-center bg-surface-container-low text-on-surface hover:bg-surface-container transition-all flex flex-col items-center" data-volume="30ml" type="button">
+<span class="font-label-lg text-label-lg">30 ML</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase mt-0.5">Travel Extrait</span>
+</button>
+<button class="vol-btn py-3 px-2 text-center bg-surface-container-low text-on-surface hover:bg-surface-container transition-all flex flex-col items-center" data-volume="50ml" type="button">
+<span class="font-label-lg text-label-lg">50 ML</span>
+<span class="font-label-sm text-label-sm text-secondary tracking-widest uppercase mt-0.5">Maison Standard</span>
+</button>
+<button class="vol-btn py-3 px-2 text-center bg-primary text-on-primary transition-all flex flex-col items-center shadow-sm" data-volume="100ml" type="button">
+<span class="font-label-lg text-label-lg">100 ML</span>
+<span class="font-label-sm text-label-sm text-on-primary-container tracking-widest uppercase mt-0.5">Grand Flacon</span>
+</button>
+</div>
+</div>
+</div>
+<!-- 3. Form Input Harga & Inventaris -->
+<div class="flex flex-col gap-space-md bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase bg-surface-container px-2 py-0.5">03</span>
+<label class="font-headline-sm text-headline-sm text-on-surface" for="priceRegular">Informasi Valuasi &amp; Katalog</label>
+</div>
+<!-- Harga Reguler -->
+<div class="flex flex-col gap-1">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="priceRegular">Harga Katalog Resmi (IDR)</label>
+<div class="flex items-center bg-surface-container-low px-space-sm focus-within:bg-surface-container-lowest transition-colors">
+<span class="font-label-md text-label-md text-secondary pr-2 tracking-wider">IDR</span>
+<input class="w-full py-3 bg-transparent text-on-surface font-body-lg text-body-lg focus:outline-none" id="priceRegular" inputmode="numeric" placeholder="2.450.000" type="text">
+</div>
+</div>
+<!-- Stok & SKU Grid -->
+<div class="flex flex-col gap-1"><label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="skuCode">Kode Arsip Flacon / Monogram</label><input class="w-full py-3 px-space-sm bg-surface-container-low text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors uppercase tracking-wider" id="skuCode" placeholder="SHR-DN-100" type="text"></div>
+<!-- Quick Inventory Alert Pill -->
+<div class="flex items-center gap-space-xs p-space-xs bg-surface-container text-secondary">
+<span class="material-symbols-outlined text-[16px] text-primary">inventory_2</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant">Batch No. #08-2024 terdaftar di Vault Kemang Atelier</span>
+</div>
+</div>
+<!-- 4. Deskripsi & Olfactory Notes -->
+<div class="flex flex-col gap-space-md bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase bg-surface-container px-2 py-0.5">04</span>
+<label class="font-headline-sm text-headline-sm text-on-surface" for="narrativeText">Kisah Naratif &amp; Piramida Aroma</label>
+</div>
+<!-- Deskripsi Produk -->
+<div class="flex flex-col gap-1">
+<div class="flex items-center justify-between">
+<label class="font-label-sm text-label-sm text-secondary uppercase tracking-wider" for="narrativeText">Deskripsi Lengkap Produk</label>
+<span class="font-label-sm text-label-sm text-secondary" id="charCounter">0 / 500 Karakter</span>
+</div>
+<textarea class="w-full bg-surface-container-low p-space-sm text-on-surface font-body-md text-body-md focus:bg-surface-container-lowest focus:outline-none transition-colors resize-none" id="narrativeText" maxlength="500" rows="4" placeholder="Tuliskan kisah naratif flacon..."></textarea>
+</div>
+<!-- Olfactory Notes inputs -->
+<div class="flex flex-col gap-space-sm pt-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase tracking-widest">Piramida Olfaktori (Accord Architecture)</span>
+<div class="flex flex-col bg-surface-container-low p-space-sm gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary uppercase">Top Notes (0-15 Menit)</span>
+<span class="font-label-sm text-label-sm text-secondary">Aroma Awal</span>
+</div>
+<input class="w-full bg-surface-container-lowest px-space-xs py-2 text-on-surface font-body-sm text-body-sm focus:outline-none" id="noteTopInput" type="text" placeholder="Bergamot, Pink Peppercorn, Saffron">
+</div>
+<div class="flex flex-col bg-surface-container-low p-space-sm gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary uppercase">Heart Notes (15-60 Menit)</span>
+<span class="font-label-sm text-label-sm text-secondary">Jiwa Parfum</span>
+</div>
+<input class="w-full bg-surface-container-lowest px-space-xs py-2 text-on-surface font-body-sm text-body-sm focus:outline-none" id="noteHeartInput" type="text" placeholder="Iris, Labdanum, Oud Wood">
+</div>
+<div class="flex flex-col bg-surface-container-low p-space-sm gap-1">
+<div class="flex items-center justify-between">
+<span class="font-label-md text-label-md text-primary uppercase">Base Notes (6+ Jam)</span>
+<span class="font-label-sm text-label-sm text-secondary">Jejak Sillage</span>
+</div>
+<input class="w-full bg-surface-container-lowest px-space-xs py-2 text-on-surface font-body-sm text-body-sm focus:outline-none" id="noteBaseInput" type="text" placeholder="Amber, Birch Tar, Dark Musk">
+</div>
+</div>
+</div>
+<!-- 5. Status Penjualan Toggle -->
+<div class="flex flex-col gap-space-sm bg-surface-container-lowest p-space-md shadow-sm">
+<div class="flex items-center gap-space-xs">
+<span class="font-label-sm text-label-sm text-primary uppercase bg-surface-container px-2 py-0.5">05</span>
+<label class="font-headline-sm text-headline-sm text-on-surface">Visibilitas Toko</label>
+</div>
+<div class="grid grid-cols-2 gap-space-xs" id="statusGroup">
+<label class="cursor-pointer relative flex flex-col p-space-sm bg-primary text-on-primary transition-all shadow-sm status-toggle" data-status="live">
+<input checked class="sr-only" name="salesStatus" type="radio" value="live">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-[20px]">public</span>
+<span class="w-3 h-3 rounded-full bg-on-primary"></span>
+</div>
+<span class="font-label-md text-label-md uppercase tracking-wider">Live Katalog</span>
+<span class="font-label-sm text-label-sm text-on-primary-container mt-0.5">Terpajang di Galeri Publik</span>
+</label>
+<label class="cursor-pointer relative flex flex-col p-space-sm bg-surface-container-low text-on-surface hover:bg-surface-container transition-all status-toggle" data-status="draft">
+<input class="sr-only" name="salesStatus" type="radio" value="draft">
+<div class="flex items-center justify-between mb-2">
+<span class="material-symbols-outlined text-[20px] text-secondary">inventory</span>
+<span class="w-3 h-3 rounded-full bg-surface-variant"></span>
+</div>
+<span class="font-label-md text-label-md uppercase tracking-wider text-secondary">Arsip Draft</span>
+<span class="font-label-sm text-label-sm text-secondary mt-0.5">Hanya tim kurator</span>
+</label>
+</div>
+<div class="flex items-start gap-space-xs pt-2">
+<span class="material-symbols-outlined text-[16px] text-secondary mt-0.5">verified</span>
+<p class="font-body-sm text-body-sm text-secondary">Data flacon terenkripsi &amp; terpublikasi resmi pada katalog pameran SAHARA.</p>
+</div>
+</div>
+</form>
+<!-- Bottom Floating Action Bar -->
+<div class="fixed bottom-0 inset-x-0 z-40 bg-surface/90 backdrop-blur-xl px-margin-mobile py-space-md shadow-[0_-8px_24px_rgba(0,0,0,0.06)]">
+<div class="flex flex-col gap-space-xs max-w-lg mx-auto">
+<button class="w-full py-3.5 bg-primary text-on-primary font-label-md text-label-md uppercase tracking-widest hover:bg-surface-container-high hover:text-on-surface transition-all flex items-center justify-center gap-space-xs" id="publishBtn" type="button">
+<span class="material-symbols-outlined text-[18px]">publish</span>
+<span id="publishLabel">Publikasikan Produk</span>
+</button>
+<div class="grid grid-cols-2 gap-space-xs">
+<button class="w-full py-2.5 bg-surface-container-low text-on-surface font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-container transition-colors flex items-center justify-center gap-1" id="previewBtn" type="button">
+<span class="material-symbols-outlined text-[14px]">visibility</span>
+<span class="">Pratinjau Toko</span>
+</button>
+<button class="w-full py-2.5 bg-surface-container-low text-on-surface font-label-sm text-label-sm uppercase tracking-wider hover:bg-surface-container transition-colors flex items-center justify-center gap-1" id="secondaryDraftBtn" type="button">
+<span class="material-symbols-outlined text-[14px]">save</span>
+<span class="">Simpan Draft</span>
+</button>
+</div>
+</div>
+</div>
+<div class="fixed top-20 left-1/2 -translate-x-1/2 z-50 bg-primary text-on-primary px-4 py-2 font-body-sm text-body-sm shadow-xl flex items-center gap-2 opacity-0 pointer-events-none transition-all duration-300" id="toastNotification">
+<span class="material-symbols-outlined text-[16px] text-on-primary">check_circle</span>
+<span id="toastMessage" class="">Perubahan draft tersimpan.</span>
+</div>
+</div></main>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/upload.js"></script>
+<script>
+  document.getElementById('cancelBackBtn').addEventListener('click', function () { window.location.href = 'admin.html'; });
+</script>
+</body></html>

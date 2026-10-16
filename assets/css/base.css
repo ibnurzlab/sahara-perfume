@@ -1,0 +1,79 @@
+/* ============================================================
+   SAHARA — Base stylesheet
+   Design tokens live in assets/js/tailwind-config.js
+   ============================================================ */
+
+@layer base {
+  html,
+  body {
+    width: 100vw;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+  }
+  body {
+    overscroll-behavior: none;
+  }
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  .pt-safe {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+  main > :first-child {
+    margin-top: 0 !important;
+  }
+  main > :last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+/* ---- Utilities ---- */
+::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+/* The detail screen is intentionally tall (matches the fixed 884px artboard) */
+body.page-detail-shell {
+  min-height: max(884px, 100dvh);
+}
+
+/* ---- Detail: flacon size selector ---- */
+.size-option {
+  transition: all 0.2s ease;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.size-option.active {
+  background-color: #000000;
+  color: #ffffff;
+}
+.size-option.active .size-name,
+.size-option.active .size-price {
+  color: #ffffff;
+}
+.size-option.active .size-sub,
+.size-option.active .size-desc {
+  color: #c9c6c5;
+}
+
+/* ---- Detail: gallery dots ---- */
+.gallery-dot {
+  transition: all 0.3s ease;
+}
+
+/* ---- Shared: toast ---- */
+.toast-enter {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* ---- Admin: quick edit modal ---- */
+#quick-edit-sheet.is-open {
+  display: flex;
+}

@@ -1,0 +1,17 @@
+{
+  "name": "sahara-perfume-cloudflare",
+  "version": "1.0.0",
+  "private": true,
+  "description": "SAHARA di Cloudflare Workers — frontend statis + API + database D1.",
+  "scripts": {
+    "build": "node ../scripts/build-frontend.js",
+    "dev": "npm run build && wrangler dev",
+    "deploy": "npm run build && wrangler deploy",
+    "db:local": "wrangler d1 migrations apply sahara-db --local",
+    "db:remote": "wrangler d1 migrations apply sahara-db --remote",
+    "tail": "wrangler tail"
+  },
+  "devDependencies": {
+    "wrangler": "^3.114.0"
+  }
+}
